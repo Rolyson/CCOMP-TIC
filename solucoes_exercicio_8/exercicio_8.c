@@ -2,28 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *solicitaString() {
-    char *minhaString = NULL;
-
-    printf("Digite uma palavra: ");
-    char buffer[100]; // Buffer temporário para armazenar a entrada
-    scanf("%s", buffer);
-
-    // Alocar memória para a string
-    minhaString = (char *)malloc(strlen(buffer) + 1); // +1 para o caractere nulo
-    
-    // Copiar a palavra para a string alocada
-    strcpy(minhaString, buffer);
-
-    // Não podemos retornar minhaString aqui, pois ela será liberada no final da função
-    // Retornar a string diretamente
-    return minhaString;
-}
-
 int main() {
-    char *str1 = NULL;
+    char str1[50];
     
-    str1 = solicitaString();
+    printf("Digite uma palavra: ");
+    scanf("%s", str1);
+
 
     int tamanho = strlen(str1);
     char strTemp[tamanho];
