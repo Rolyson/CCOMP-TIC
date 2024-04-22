@@ -15,7 +15,7 @@ int solicitarNumero(){
 
 void ordenaArray(int array_length, int numeros[] ){
 	for (int i = 0; i < array_length; i++){
-        for (int j = i; j < array_length; j++) {
+        for (int j = i + 1; j < array_length; j++) {
             if (numeros[i] > numeros[j]) {
                 int temp = numeros[i];
                 numeros[i] = numeros[j];
