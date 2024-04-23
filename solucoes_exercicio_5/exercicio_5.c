@@ -15,8 +15,8 @@ int solicitarNumero(){
 
 void ordenaArray(int array_length, int numeros[] ){
 	for (int i = 0; i < array_length; i++){
-        for (int j = i; j < array_length; j++) {
-            if (numeros[i] > numeros[j]) {
+        for (int j = i + 1; j < array_length; j++) {
+            if (numeros[i] < numeros[j]) {
                 int temp = numeros[i];
                 numeros[i] = numeros[j];
                 numeros[j] = temp;
@@ -25,28 +25,28 @@ void ordenaArray(int array_length, int numeros[] ){
     }
 }
 
-void ordenaDoisArray(int array_length, int numero_ocorrencia[], int numero_ordem[] ){
+void ordenaArrayOcorrencia(int array_length, int ocorrencias[], int numeros[] ){
 	for (int i = 0; i < array_length; i++){
-        for (int j = i; j < array_length; j++) {
-            if (numero_ocorrencia[i] < numero_ocorrencia[j]) {
-                int temp_ocorrencia = numero_ocorrencia[i];
-                numero_ocorrencia[i] = numero_ocorrencia[j];
-                numero_ocorrencia[j] = temp_ocorrencia;
+        for (int j = i + 1; j < array_length; j++) {
+            if (ocorrencias[i] < ocorrencias[j]) {
+                int temp_ocorrencias = ocorrencias[i];
+                int temp_numeros = numeros[i];
+                ocorrencias[i] = ocorrencias[j];
+                ocorrencias[j] = temp_ocorrencias;
                 
-								int temp_numero = numero_ordem[i];
-                numero_ordem[i] = numero_ordem[j];
-                numero_ordem[j] = temp_numero;	
+								numeros[i] = numeros[j];
+                numeros[j] = temp_numeros;
             }
         }
     }
 }
 
 int main(){
-	int array_length, numero, numero_temp, ocorrencia, contador = 0;
+	int array_length, numero, aux;
 	
 	array_length = solicitarNumero();
 	
-	int numeros [array_length];
+	int numeros [array_length], ocorrencias [array_length], numeros_alutinados [array_length];
 	
 	for (int i = 0; i < array_length; i++){
 		printf("Digite o numero inteiro que deseja armazenar: ");
@@ -56,39 +56,24 @@ int main(){
 	}
 	
 	ordenaArray(array_length, numeros);
-
 	
-	int numero_ordem [array_length];
-	int numero_ocorrencia [array_length];
-
+	int numero_checado, index_novo_array = -1;
 	for (int i = 0; i < array_length; i++){
-		if(i == array_length){
-			numero_ordem[contador] = numeros[i];
-			numero_ocorrencia[contador] = ocorrencia;
-			contador ++;
-			
-		}else	if(numeros[i] != numero_temp){
-			if(i != 0){
-				numero_ordem[contador] = numero_temp;
-				numero_ocorrencia[contador] = ocorrencia;
-				contador ++;
-			}
-			numero_temp = numeros[i];
-			ocorrencia = 1;
-		} else if(numeros[i] == numero_temp){
-			ocorrencia ++;
+		if(numero_checado != numeros[i]){
+			index_novo_array += 1;
+			ocorrencias[index_novo_array] = 1;
+			numeros_alutinados[index_novo_array] =  numeros[i];	
+			numero_checado = numeros[i];			
+		}else{
+			ocorrencias[index_novo_array] ++;
 		}
-	} 
-
-	// for(int i = 0; i<contador; i++){
-	// 	printf("numero %d \n", numero_ordem[i]);
-	// }
-	
-	ordenaDoisArray(contador, numero_ocorrencia, numero_ordem);
-
-	for(int i = 0; i<contador; i++){
-		printf("numero %d : ocorrencia %d\n", numero_ordem[i], numero_ocorrencia[i]);
 	}
+
+	ordenaArrayOcorrencia(index_novo_array, ocorrencias, numeros_alutinados);
+
+	for (int i = 0; i <= index_novo_array; i++){
+		printf("%d: %d ocorrencias\n", numeros_alutinados[i], ocorrencias[i]);	
+	} 
 
 	return 0;	
 }
