@@ -24,7 +24,5 @@ int main() {
         printf("%s nao eh palindromo.\n", str1);
     }
     
-    free(str1);
-
     return 0;
 }
