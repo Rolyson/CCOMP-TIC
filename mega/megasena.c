@@ -2,20 +2,12 @@
 #include <stdlib.h>
 #include "megasena.h"
 
-int soma(int num1, int num2) {
-    
-    return num1 + num2;
-}
-
 int solicita_valor(char enunciado[], int vl_min, int vl_max){
     int variavel;
-    printf("%s", enunciado);
-    scanf("%d", &variavel);
-
-    if(variavel < vl_min || variavel > vl_max){
-        printf("Valor invalido!\n");
-        solicita_valor(enunciado, vl_min, vl_max);
-    }
+    do{
+        printf("%s", enunciado);
+        scanf("%d", &variavel);
+    }while(variavel < vl_min || variavel > vl_max);
 
     return variavel;
 }
