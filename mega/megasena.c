@@ -24,9 +24,23 @@ int numeroRepetido(int numero, int array[], int tamanho){
     return 0;
 }
 
-void apostaManual(int qm, int qd){
-    int matriz[qm][qd];
-    printf("Informe o valor (Valores validos de 1 a 60):\n");
+int** apostaManual(int qm, int qd, int** matriz){
+    matriz = (int **)malloc(qm * sizeof(int *));
+    if (matriz == NULL) {
+        printf("Erro ao alocar memória para as linhas da matriz.\n");
+        return NULL;
+    }
+
+    // Alocando memória para as colunas de cada linha
+    for (int i = 0; i < qm; i++) {
+        matriz[i] = (int *)malloc(qd * sizeof(int));
+        if (matriz[i] == NULL) {
+            printf("Erro ao alocar memória para as colunas da matriz.\n");
+            return NULL;
+        }
+    }
+
+    printf("Informe os numeros das apostas manuais (Valores validos de 1 a 60):\n");
     for ( int i=0; i < qm; i++ ){
         printf("Aposta %d\n", i+1);
         for (int j=0; j < qd; j++ ){
@@ -43,10 +57,14 @@ void apostaManual(int qm, int qd){
         }
     }
     
-    for (int i=0; i<qm; i++ ){
-        for (int j=0; j<qd; j++ ){
-            printf ("[%d]", matriz[ i ][ j ]);
-        }
-        printf("\n");
-    }
+    return matriz;
 }
+
+// void exibirApostaManual(int matriz[], int qm, int qd){
+//         for (int i=0; i<qm; i++ ){
+//             for (int j=0; j<qd; j++ ){
+//                 printf ("[%d]", matriz[ i ][ j ]);
+//             }
+//             printf("\n");
+//         }
+// }

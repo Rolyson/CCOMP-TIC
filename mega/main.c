@@ -5,6 +5,7 @@
 
 
 int main() {
+    int **matriz;
     int QD, QM;
     char opcao = 1;
 
@@ -13,7 +14,7 @@ int main() {
         QM = solicitaValor("Informe a quantidade de apostas manuais (Valores validos de 0 a 3): ", 0, 3);
         
         if(QM > 0){
-            apostaManual(QM, QD);
+            matriz = apostaManual(QM, QD, matriz);
         }
 
         printf("\nDeseja continuar (S/N)? \n");
