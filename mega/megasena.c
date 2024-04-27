@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "megasena.h"
 
-int solicita_valor(char enunciado[], int vl_min, int vl_max){
+int solicitaValor(char enunciado[], int vl_min, int vl_max){
     int variavel;
     do{
         printf("%s", enunciado);
@@ -24,7 +24,7 @@ int numeroRepetido(int numero, int array[], int tamanho){
     return 0;
 }
 
-void aposta_manual(int qm, int qd){
+void apostaManual(int qm, int qd){
     int matriz[qm][qd];
     printf("Informe o valor (Valores validos de 1 a 60):\n");
     for ( int i=0; i < qm; i++ ){
@@ -32,7 +32,7 @@ void aposta_manual(int qm, int qd){
         for (int j=0; j < qd; j++ ){
             int nrAposta, validado;
             do{
-                nrAposta = solicita_valor("", 1, 60);
+                nrAposta = solicitaValor("", 1, 60);
                 validado = numeroRepetido(nrAposta, matriz[i] ,qd);
 
                 if(validado){

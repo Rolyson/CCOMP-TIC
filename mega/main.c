@@ -9,11 +9,11 @@ int main() {
     char opcao = 1;
 
     do{
-        QD = solicita_valor("Informe a quantidade de dezenas que deseja jogar na aposta (Valores validos de 6 a 15): ", 6, 15);
-        QM = solicita_valor("Informe a quantidade de apostas manuais (Valores validos de 0 a 3): ", 0, 3);
+        QD = solicitaValor("Informe a quantidade de dezenas que deseja jogar na aposta (Valores validos de 6 a 15): ", 6, 15);
+        QM = solicitaValor("Informe a quantidade de apostas manuais (Valores validos de 0 a 3): ", 0, 3);
         
         if(QM > 0){
-            aposta_manual(QM, QD);
+            apostaManual(QM, QD);
         }
 
         printf("\nDeseja continuar (S/N)? \n");
