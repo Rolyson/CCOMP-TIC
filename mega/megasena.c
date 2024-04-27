@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "megasena.h"
 
 int solicitaValor(char enunciado[], int vl_min, int vl_max){
@@ -24,6 +25,16 @@ int numeroRepetido(int numero, int array[], int tamanho){
     return 0;
 }
 
+void numerosAleatorios(int* array, int tamanho){
+    for (int i = 0; i < tamanho; i++){
+        int numero;
+        do{
+            numero = 1+ rand() % 60;
+        }while(numeroRepetido(numero, array, tamanho));
+        array[i] = numero;
+    }
+}
+
 int** apostaManual(int qm, int qd, int** matriz){
     matriz = (int **)malloc(qm * sizeof(int *));
     if (matriz == NULL) {
@@ -31,7 +42,6 @@ int** apostaManual(int qm, int qd, int** matriz){
         return NULL;
     }
 
-    // Alocando memória para as colunas de cada linha
     for (int i = 0; i < qm; i++) {
         matriz[i] = (int *)malloc(qd * sizeof(int));
         if (matriz[i] == NULL) {
@@ -60,11 +70,11 @@ int** apostaManual(int qm, int qd, int** matriz){
     return matriz;
 }
 
-// void exibirApostaManual(int matriz[], int qm, int qd){
-//         for (int i=0; i<qm; i++ ){
-//             for (int j=0; j<qd; j++ ){
-//                 printf ("[%d]", matriz[ i ][ j ]);
-//             }
-//             printf("\n");
-//         }
-// }
+void exibirApostaManual(int** matriz, int qm, int qd){
+        for (int i=0; i<qm; i++ ){
+            for (int j=0; j<qd; j++ ){
+                printf ("[%d]", matriz[ i ][ j ]);
+            }
+            printf("\n");
+        }
+}
