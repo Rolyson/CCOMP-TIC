@@ -6,7 +6,7 @@ int main() {
     char str1[50];
     
     printf("Digite uma palavra: ");
-    scanf("%s", str1);
+    scanf("%s", &str1);
 
 
     int tamanho = strlen(str1);

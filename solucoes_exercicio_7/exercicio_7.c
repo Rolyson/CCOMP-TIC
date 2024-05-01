@@ -18,10 +18,10 @@ int main() {
 	char str1[50], str2[50], str1_temp[50], str2_temp[50];
     
 	printf("Digite uma palavra: ");
-    scanf("%s", str1);
+    scanf("%s", &str1);
     
     printf("Digite uma palavra: ");
-    scanf("%s", str2);
+    scanf("%s", &str2);
     
     strcpy(str1_temp, str1);
     strcpy(str2_temp, str2);

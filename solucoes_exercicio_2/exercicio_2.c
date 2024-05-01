@@ -19,7 +19,7 @@ int main(){
       kph = mph * 1.609;
       printf("A velocidade em quilometros corresponde ah: %.2f\n", kph);
     }
-  } while(opcao <= 2);
+  } while(opcao == 1 || opcao == 2);
 
   printf("Encerrado");
 
