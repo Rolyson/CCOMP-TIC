@@ -21,7 +21,7 @@ void menu(){
 		
 	scanf("%d", &opcao);
 }
-
+ 
 
 int main(){
 	
