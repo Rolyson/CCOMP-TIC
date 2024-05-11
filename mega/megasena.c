@@ -16,6 +16,18 @@ int solicitaValor(char enunciado[], int vl_min, int vl_max){
     return variavel;
 }
 
+void ordenaArray(int array_length, int numeros[] ){
+	for (int i = 0; i < array_length; i++){
+        for (int j = i + 1; j < array_length; j++) {
+            if (numeros[i] > numeros[j]) {
+                int temp = numeros[i];
+                numeros[i] = numeros[j];
+                numeros[j] = temp;
+            }
+        }
+    }
+}
+
 int numeroRepetido(int numero, int array[], int tamanho){
     for (int i = 0; i < tamanho; i++) {
         if (array[i] == numero) {
@@ -33,6 +45,7 @@ void numerosAleatorios(int* array, int tamanho){
         }while(numeroRepetido(numero, array, tamanho));
         array[i] = numero;
     }
+    ordenaArray(tamanho, array);
 }
 
 int** aposta(int linhas, int qd, int** matriz, int type){
@@ -64,8 +77,9 @@ int** aposta(int linhas, int qd, int** matriz, int type){
                         printf("Esse numero ja foi jogado na aposta\n");
                     }
                 }while(validado);
-                matriz[ i ][ j ] = nrAposta;
+                matriz[i][j] = nrAposta;
             }
+            ordenaArray(qd, matriz[i]);
         }
     }else{
         for (int i=0; i<linhas; i++ ){
@@ -79,9 +93,13 @@ int** aposta(int linhas, int qd, int** matriz, int type){
 void exibirAposta(int** matriz, int qt_aposta, int qd, char tipo[], int qt_aposta_anterior){
     
     for (int i=0; i<qt_aposta; i++ ){
-        printf("Aposta %d (%s):\n", i + 1 + qt_aposta_anterior, tipo);
+        printf("\nAposta %d (%s):\n", i + 1 + qt_aposta_anterior, tipo);
         for (int j=0; j<qd; j++ ){
-            printf ("[%d]", matriz[ i ][ j ]);
+            if(matriz[ i ][ j ] <= 9){
+                printf ("[0%d]", matriz[ i ][ j ]);
+            }else{
+                printf ("[%d]", matriz[ i ][ j ]);
+            }
         }
         printf("\n");
     }
@@ -116,11 +134,12 @@ void revisarAposta(int QT, int QM, int QS, int QD, int** apostasManuais, int** a
 
     exibirAposta(apostasManuais, QM, QD, "manual", 0);
     exibirAposta(apostasSurpresinhas, QS, QD, "surpresinha", QM);
-    
+
+    printf("\nTeimosinhas: %d\n", QT);
+
     int VD = valorQuantidadeDezenas(QD);
+    float vl_aposta =  QT * (VD * (QM + QS));
 
-    int vl_aposta =  QT * (VD * (QM + QS));
-
-    printf("vl_aposta: %d\n", vl_aposta);
+    printf("Valor total as apostas: R$ %.2f\n", vl_aposta);
 
 }
