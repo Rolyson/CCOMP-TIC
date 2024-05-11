@@ -76,23 +76,51 @@ int** aposta(int linhas, int qd, int** matriz, int type){
     return matriz;
 }
 
-void exibirApostaManual(int** matriz, int qm, int qd){
-    // int teste[2][6];
+void exibirAposta(int** matriz, int qt_aposta, int qd, char tipo[], int qt_aposta_anterior){
     
-    // for (int i=0; i<2; i++ ){
-    //     numerosAleatorios(teste[i], 6);
-    // }
-
-    // for (int i=0; i<2; i++ ){
-    //     for (int j=0; j<6; j++ ){
-    //         printf ("[%d]", teste[ i ][ j ]);
-    //     }
-    //     printf("\n");
-    // }
-    for (int i=0; i<qm; i++ ){
+    for (int i=0; i<qt_aposta; i++ ){
+        printf("Aposta %d (%s):\n", i + 1 + qt_aposta_anterior, tipo);
         for (int j=0; j<qd; j++ ){
             printf ("[%d]", matriz[ i ][ j ]);
         }
         printf("\n");
     }
+}
+
+int valorQuantidadeDezenas(int QD){
+    if(QD == 6){
+        return 5;
+    }else if(QD == 7){
+        return 35;
+    }else if(QD == 8){
+        return 140;
+    }else if(QD == 9){
+        return 420;
+    }else if(QD == 10){
+        return 1050;
+    }else if(QD == 11){
+        return 2310;
+    }else if(QD == 12){
+        return 4620;
+    }else if(QD == 13){
+        return 8580;
+    }else if(QD == 14){
+        return 15015;
+    }else if(QD == 15){
+        return 25025;
+    }
+}
+
+void revisarAposta(int QT, int QM, int QS, int QD, int** apostasManuais, int** apostasSurpresinhas){
+    printf("Revise suas apostas:\n");
+
+    exibirAposta(apostasManuais, QM, QD, "manual", 0);
+    exibirAposta(apostasSurpresinhas, QS, QD, "surpresinha", QM);
+    
+    int VD = valorQuantidadeDezenas(QD);
+
+    int vl_aposta =  QT * (VD * (QM + QS));
+
+    printf("vl_aposta: %d\n", vl_aposta);
+
 }

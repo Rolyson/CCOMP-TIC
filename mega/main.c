@@ -6,7 +6,7 @@
 
 int main() {
     int **apostasManuais, **apostasSurpresinhas;
-    int QT, VD, QD, QM, QS;
+    int QT, QD, QM, QS;
     char opcao = 1;
 
     do{
@@ -17,14 +17,23 @@ int main() {
             apostasManuais = aposta(QM, QD, apostasManuais, 1);
         }
 
-        QS = solicitaValor("Digite a quantidade de Surpresinhas que deseja apostar (valores possíveis: 0 a 7): ", 0, 3);
+        QS = solicitaValor("Digite a quantidade de Surpresinhas que deseja apostar (valores possiveis: 0 a 7): ", 0, 3);
 
         if(QS > 0){
             apostasSurpresinhas = aposta(QS, QD, apostasSurpresinhas, 2);
         }
 
-        exibirApostaManual(apostasManuais, QM, QD);
-        exibirApostaManual(apostasSurpresinhas, QS, QD);
+        do{
+            printf("Digite a quantidade de Teimosinhas (concursos que deseja participar com as mesmas apostas. Valores vAlidos: 1, 2, 4, 8): ");
+            scanf("%d", &QT);
+        }while(QT != 1 && QT != 2 && QT != 4 && QT != 8);
+
+        revisarAposta(QT, QM, QS, QD, apostasManuais, apostasSurpresinhas);
+
+
+       
+
+
         printf("\nDeseja continuar (S/N)? \n");
         scanf("%s", &opcao);
         
