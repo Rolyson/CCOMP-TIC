@@ -193,7 +193,6 @@ float calcularPremio(int acertos, int QD){
 int sorteio(int** apostasManuais, int** apostasSurpresinhas, int QD, int QM, int QS){
     int dezenas_sorteadas[6];
     numerosAleatorios(dezenas_sorteadas, 6);
-    
     // int dezenas_sorteadas[6] = {1,2,3,4,50,60};
 
     printf("Dezenas sorteadas:\n\n");
@@ -205,8 +204,6 @@ int sorteio(int** apostasManuais, int** apostasSurpresinhas, int QD, int QM, int
     float total_aposta = 0;
     for(int i = 0; i < QM; i++){
         int acertos = compararApostas(apostasManuais[i], dezenas_sorteadas, QD);
-
-        printf("Aposta %d: %d/6\n", i+1, acertos);
          
         if(acertos >= 4){
             total_aposta += calcularPremio(acertos, QD);
@@ -219,11 +216,11 @@ int sorteio(int** apostasManuais, int** apostasSurpresinhas, int QD, int QM, int
             printf("SENA!\n");
         }
     }
+
     for(int i = 0; i < QS; i++){
-        int acertos = compararApostas(apostasManuais[i], dezenas_sorteadas, QD);
+        int acertos = compararApostas(apostasSurpresinhas[i], dezenas_sorteadas, QD);
 
         printf("Aposta %d: %d/6\n", i+1+QM, acertos);
-         
         if(acertos >= 4){
             total_aposta += calcularPremio(acertos, QD);
         }
@@ -235,6 +232,8 @@ int sorteio(int** apostasManuais, int** apostasSurpresinhas, int QD, int QM, int
             printf("SENA!\n");
         }
     }
+
+    
     return total_aposta;
         
 }

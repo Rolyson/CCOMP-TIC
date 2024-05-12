@@ -6,7 +6,7 @@
 
 int main() {
     int **apostasManuais, **apostasSurpresinhas;
-    int QT, QD, QM, QS;
+    int QT = 0, QD = 0, QM = 0, QS = 0;
     char opcao = 1;
 
     
@@ -43,7 +43,7 @@ int main() {
 
     float resultadoAposta[tempQT];
     for(int i = 0; i < tempQT; i++){
-        printf("Concurso: 000%d\n", i+1);
+        printf("\nConcurso: 000%d\n", i+1);
         resultadoAposta[i] = sorteio(apostasManuais, apostasSurpresinhas, QD, QM, QS);
     }
 
