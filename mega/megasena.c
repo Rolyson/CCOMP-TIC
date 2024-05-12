@@ -129,7 +129,7 @@ int valorQuantidadeDezenas(int QD){
     }
 }
 
-void revisarAposta(int QT, int QM, int QS, int QD, int** apostasManuais, int** apostasSurpresinhas){
+int revisarAposta(int QT, int QM, int QS, int QD, int** apostasManuais, int** apostasSurpresinhas){
     printf("Revise suas apostas:\n");
 
     exibirAposta(apostasManuais, QM, QD, "manual", 0);
@@ -142,4 +142,99 @@ void revisarAposta(int QT, int QM, int QS, int QD, int** apostasManuais, int** a
 
     printf("Valor total as apostas: R$ %.2f\n", vl_aposta);
 
+    return vl_aposta;
+}
+
+int compararApostas(int* aposta, int* sorteio, int QD){
+    int acertos = 0;
+
+    for(int i = 0; i < QD; i++){
+        for(int j = 0; j < 6; j++){
+            if(aposta[i] == sorteio[j]){
+                acertos ++;
+                break;
+            }
+        }
+    }
+    
+    return acertos;
+}
+
+float calcularPremio(int acertos, int QD){
+    float vl_sena = 118265926.76;
+    float vl_quina = 32797.02;
+    float vl_quadra = 834.93;
+    // Tabela 2 do exemplo:
+    int premios[10][6]= {
+        {1, 0 , 0  , 1 , 0  , 1}, // 6 Dezesnas
+        {1, 6 , 0  , 2 , 5  , 3}, // 7 Dezesnas
+        {1, 12, 15 , 3 , 15 , 6}, // 8 Dezesnas
+        {1, 18, 45 , 4 , 30 , 10}, // 9 Dezesnas
+        {1, 24, 90 , 5 , 50 , 15}, // 10 Dezesnas
+        {1, 30, 150, 6 , 75 , 21}, // 11 Dezesnas
+        {1, 36, 225, 7 , 105, 28}, // 12 Dezesnas
+        {1, 42, 315, 8 , 140, 36}, // 13 Dezesnas
+        {1, 48, 420, 9 , 180, 45}, // 14 Dezesnas
+        {1, 54, 540, 10, 225, 55}, // 15 Dezesnas
+    };
+
+    if(acertos == 6){
+        return (premios[QD - 6][0] * vl_sena) + (premios[QD - 6][1] * vl_quina) + (premios[QD - 6][2] * vl_quadra);
+    }else if(acertos == 5){
+        return (premios[QD - 6][3] * vl_quina) + (premios[QD - 6][4] * vl_quadra);
+    }else if(acertos == 4){
+        return premios[QD - 6][5] * vl_quadra;
+    }else{
+        return 0.0;
+    }
+}
+
+
+int sorteio(int** apostasManuais, int** apostasSurpresinhas, int QD, int QM, int QS){
+    int dezenas_sorteadas[6];
+    numerosAleatorios(dezenas_sorteadas, 6);
+    
+    // int dezenas_sorteadas[6] = {1,2,3,4,50,60};
+
+    printf("Dezenas sorteadas:\n\n");
+    for(int i=0; i<6; i++ ){
+        printf("[%d]", dezenas_sorteadas[i]);
+    }
+    printf("\n\n");
+
+    float total_aposta = 0;
+    for(int i = 0; i < QM; i++){
+        int acertos = compararApostas(apostasManuais[i], dezenas_sorteadas, QD);
+
+        printf("Aposta %d: %d/6\n", i+1, acertos);
+         
+        if(acertos >= 4){
+            total_aposta += calcularPremio(acertos, QD);
+        }
+        if(acertos == 4){
+            printf("QUADRA!\n");
+        }else if(acertos == 5){
+            printf("QUINA!\n");
+        }else if(acertos == 6){
+            printf("SENA!\n");
+        }
+    }
+    for(int i = 0; i < QS; i++){
+        int acertos = compararApostas(apostasManuais[i], dezenas_sorteadas, QD);
+
+        printf("Aposta %d: %d/6\n", i+1+QM, acertos);
+         
+        if(acertos >= 4){
+            total_aposta += calcularPremio(acertos, QD);
+        }
+        if(acertos == 4){
+            printf("QUADRA!\n");
+        }else if(acertos == 5){
+            printf("QUINA!\n");
+        }else if(acertos == 6){
+            printf("SENA!\n");
+        }
+    }
+    return total_aposta;
+        
 }
