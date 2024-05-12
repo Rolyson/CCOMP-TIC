@@ -205,6 +205,7 @@ int sorteio(int** apostasManuais, int** apostasSurpresinhas, int QD, int QM, int
     for(int i = 0; i < QM; i++){
         int acertos = compararApostas(apostasManuais[i], dezenas_sorteadas, QD);
          
+        printf("Aposta %d: %d/6\n", i+1, acertos);
         if(acertos >= 4){
             total_aposta += calcularPremio(acertos, QD);
         }
